@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+import Hand from "./Components/Hand";
+import deck from "./deck";
+
 import './App.css';
+
+function dealHand() {
+  let hand = [];
+  for (let i = 0; i < 7; i++) {
+    const random = Math.floor(Math.random() * deck.length);
+    hand.push(deck.splice(random, 1));
+  }
+  return hand;
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Uno</h1>
+      {deck.map((card, index) => (
+        <div className={`card ${card.suit}`} key={index}>{card.type}</div>
+      ))}
+      <Hand cards={dealHand()} />
     </div>
   );
 }
